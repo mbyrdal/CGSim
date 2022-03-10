@@ -51,36 +51,36 @@ def droptable():
         n = random.randint(1, 48)
         randomlist.append(n)
 
-    # Name (Quantity): Roll number
-
     for x in range(0, 3, 1):
         if 1 <= randomlist[x] <= 44:
             rand = random.randint(0,21)
             rand_q = randomizeamount(rand)
-            print(f"{regdrops.get(rand)}, quantity : {rand_q)}, profit : {calculateprofit(rand_q)} {randomlist[x]}")
+            print(f"{regdrops.get(rand)}, quantity : {rand_q}, profit : {calculateprofit(rand, rand_q)}, roll : {randomlist[x]}")
         elif 45 <= randomlist[x] <= 47:
-            print(f"{otherdrops.get(22)} ({randomizeamount(22)}): {randomlist[x]}")
+            rand_q = randomizeamount(22)
+            print(f"{otherdrops.get(22)}, quantity : {rand_q}, profit : {calculateprofit(22, rand_q)}, roll : {randomlist[x]}")
         else:
-            print(f"{otherdrops.get(23)} ({randomizeamount(23)}): {randomlist[x]}")
+            rand_q = randomizeamount(23)
+            print(f"{otherdrops.get(23)}, quantity : {rand_q}, profit : {calculateprofit(23, rand_q)}, roll : {randomlist[x]}")
     
     crystals = random.randint(5,9)
     print(f"Crystal shards ({crystals})")
 
     tertiary = random.randint(1, 800)
     if 1 <= tertiary <= 759:
-        print(f"None: {tertiary}")
+        print(f"None, roll : {tertiary}")
     elif 760 <= tertiary <= 783:
-        print(f"Clue scroll (elite): {tertiary}")
+        print(f"Clue scroll (elite), roll : {tertiary}")
     elif 784 <= tertiary <= 797:
         q = random.randint(1,2)
         if(q == 1):
-            print(f"Crystal weapon seed: {tertiary}")
+            print(f"Crystal weapon seed, roll : {tertiary}")
         else:
-            print(f"Crystal armour seed: {tertiary}")
+            print(f"Crystal armour seed, roll : {tertiary}")
     elif 798 <= tertiary <= 799:
-        print(f"Enhanced crystal weapon seed: {tertiary}")
+        print(f"Enhanced crystal weapon seed, roll : {tertiary}")
     else:
-        print(f"Yungllef: {tertiary}")
+        print(f"Yungllef, roll : {tertiary}")
 
 for z in range(3):
     droptable()
