@@ -45,43 +45,58 @@ def calculateprofit(item_id, quantity):
         p = quantity * prices.get(item_id)
     return p
 
-def droptable():
-    randomlist = []
-    for i in range(0, 3):
-        n = random.randint(1, 48)
-        randomlist.append(n)
-
+def finditem(numlist):
     for x in range(0, 3, 1):
-        if 1 <= randomlist[x] <= 44:
-            rand = random.randint(0,21)
-            rand_q = randomizeamount(rand)
-            print(f"{regdrops.get(rand)} ({rand_q}, {calculateprofit(rand, rand_q)}, {randomlist[x]})")
-        elif 45 <= randomlist[x] <= 47:
-            rand_q = randomizeamount(22)
-            print(f"{otherdrops.get(22)} ({rand_q}, {calculateprofit(22, rand_q)}, {randomlist[x]})")
+        if 1 <= numlist[x] >= 44:
+            roll_val = numlist[x]
+            id_val = random.randint(0,21)
+            name_val = regdrops.get(id_val)
+            q_val = randomizeamount(id_val)
+        elif 45 <= numlist[x] <= 47:
+            roll_val = numlist[x]
+            id_val = 22
+            name_val = otherdrops.get(id_val)
+            q_val = randomizeamount(id_val)
         else:
-            rand_q = randomizeamount(23)
-            print(f"{otherdrops.get(23)} ({rand_q}, {calculateprofit(23, rand_q)}, {randomlist[x]})")
-    
-    crystals = random.randint(5,9)
-    print(f"Crystal shards ({crystals})")
+            roll_val = numlist[x]
+            id_val = 23
+            name_val = otherdrops.get(id_val)
+            q_val = randomizeamount(id_val)
+    return {"id": id_val, "name": name_val, "quantity": q_val, "roll": roll_val}
 
+def findtertiary():
+    temp = {}
     tertiary = random.randint(1, 800)
     if 1 <= tertiary <= 759:
-        print(f"Unique: None ({tertiary})")
+        temp = {"roll": tertiary, "tname": "None", "tquantity": 1, "tprofit": 0}
     elif 760 <= tertiary <= 783:
-        print(f"Unique: Clue scroll elite ({tertiary})")
+        temp = {"roll": tertiary, "name": "Clue scroll (elite)", "tquantity": 1, "tprofit": 0}
     elif 784 <= tertiary <= 797:
-        q = random.randint(1,2)
-        if(q == 1):
-            print(f"Unique: Crystal weapon seed (1, 337976, {tertiary})")
+        if random.randint(1, 2) == 1:
+            temp = {"troll": tertiary, "tname": "Crystal weapon seed", "tquantity": 1, "tprofit": 337976}
         else:
-            print(f"Unique: Crystal armour seed (1, 6825541, {tertiary})")
+            temp = {"troll": tertiary, "tname": "Crystal armour seed", "tquantity": 1, "tprofit": 6825541}
     elif 798 <= tertiary <= 799:
-        print(f"Unique: Enhanced crystal weapon seed (1, 162804290, {tertiary})")
+        temp = temp = {"troll": tertiary, "tname": "Enhanced crystal weapon seed", "quantity": 1, "tprofit": 162804290}
     else:
-        print(f"Unique: Yungllef (1, 0, {tertiary})")
+        temp = {"troll": tertiary, "tname": "Yungllef", "tquantity": 1, "tprofit": 0}
+    return temp
 
-for z in range(3):
-    droptable()
-    print("\n")
+def reward():
+    result = {}
+    rolls = []
+    for i in range(0, 3):
+        n = random.randint(1, 48)
+        rolls.append(n)
+    
+    result.update(finditem(rolls))
+    result.update({"crystals": random.randint(5,9)})
+    tertiary = findtertiary()
+    result.update(tertiary)
+    return result
+
+mylist = []
+for z in range(5):
+    mylist.append(reward())
+
+print(mylist[0])
