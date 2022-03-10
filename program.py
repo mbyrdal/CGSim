@@ -52,19 +52,19 @@ def droptable():
 
     tertiary = random.randint(1, 800)
     if 1 <= tertiary <= 759:
-        print(f"None ({tertiary})")
+        print(f"None: {tertiary}")
     elif 760 <= tertiary <= 783:
-        print(f"Clue scroll (elite) ({tertiary})")
+        print(f"Clue scroll (elite): {tertiary}")
     elif 784 <= tertiary <= 797:
         q = random.randint(1,2)
         if(q == 1):
-            print(f"Crystal weapon seed ({tertiary})")
+            print(f"Crystal weapon seed: {tertiary}")
         else:
-            print(f"Crystal armour seed ({tertiary})")
+            print(f"Crystal armour seed: {tertiary}")
     elif 798 <= tertiary <= 799:
-        print(f"Enhanced crystal weapon seed ({tertiary})")
+        print(f"Enhanced crystal weapon seed: {tertiary}")
     else:
-        print(f"Yungllef ({tertiary})")
+        print(f"Yungllef: {tertiary}")
 
 for z in range(3):
     droptable()
