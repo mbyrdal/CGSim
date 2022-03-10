@@ -43,7 +43,7 @@ def calculateprofit(item_id, quantity):
         p = quantity * pricesspecial.get(item_id)
     else:
         p = quantity * prices.get(item_id)
-    print(p)
+    return p
 
 def droptable():
     randomlist = []
@@ -55,32 +55,32 @@ def droptable():
         if 1 <= randomlist[x] <= 44:
             rand = random.randint(0,21)
             rand_q = randomizeamount(rand)
-            print(f"{regdrops.get(rand)}, quantity : {rand_q}, profit : {calculateprofit(rand, rand_q)}, roll : {randomlist[x]}")
+            print(f"{regdrops.get(rand)} ({rand_q}, {calculateprofit(rand, rand_q)}, {randomlist[x]})")
         elif 45 <= randomlist[x] <= 47:
             rand_q = randomizeamount(22)
-            print(f"{otherdrops.get(22)}, quantity : {rand_q}, profit : {calculateprofit(22, rand_q)}, roll : {randomlist[x]}")
+            print(f"{otherdrops.get(22)} ({rand_q}, {calculateprofit(22, rand_q)}, {randomlist[x]})")
         else:
             rand_q = randomizeamount(23)
-            print(f"{otherdrops.get(23)}, quantity : {rand_q}, profit : {calculateprofit(23, rand_q)}, roll : {randomlist[x]}")
+            print(f"{otherdrops.get(23)} ({rand_q}, {calculateprofit(23, rand_q)}, {randomlist[x]})")
     
     crystals = random.randint(5,9)
     print(f"Crystal shards ({crystals})")
 
     tertiary = random.randint(1, 800)
     if 1 <= tertiary <= 759:
-        print(f"None, roll : {tertiary}")
+        print(f"Unique: None ({tertiary})")
     elif 760 <= tertiary <= 783:
-        print(f"Clue scroll (elite), roll : {tertiary}")
+        print(f"Unique: Clue scroll elite ({tertiary})")
     elif 784 <= tertiary <= 797:
         q = random.randint(1,2)
         if(q == 1):
-            print(f"Crystal weapon seed, roll : {tertiary}")
+            print(f"Unique: Crystal weapon seed (1, 337976, {tertiary})")
         else:
-            print(f"Crystal armour seed, roll : {tertiary}")
+            print(f"Unique: Crystal armour seed (1, 6825541, {tertiary})")
     elif 798 <= tertiary <= 799:
-        print(f"Enhanced crystal weapon seed, roll : {tertiary}")
+        print(f"Unique: Enhanced crystal weapon seed (1, 162804290, {tertiary})")
     else:
-        print(f"Yungllef, roll : {tertiary}")
+        print(f"Unique: Yungllef (1, 0, {tertiary})")
 
 for z in range(3):
     droptable()
