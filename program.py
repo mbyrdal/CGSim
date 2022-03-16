@@ -133,9 +133,30 @@ def run():
     
     return result
 
-# Compiles and prints the list of dictionaries (completions) as JSON
+# Main program
 completions = []
 for x in range(3):
     completions.append(run())
-json_obj = json.dumps(completions, indent = 4)
-print(json_obj)
+# print_as_json(completions)
+# print_simply(completions)
+    
+# Prints the list of dictionaries (completions) as JSON   
+def print_as_json(completions_list):
+    json_obj = json.dumps(completions_list, indent = 4)
+    print(json_obj)
+
+# Prints the list of dictionaries (completions) in a simple format
+# Missing profit formatting (decimals x..k and x..m)
+def print_simply(my_list):
+    profit = 0
+    for c in completions:
+        if c['tertiary']['profit_t'] == 0:
+            print(f'{c["name"]} (x{c["quantity"]}): {c["profit"]}')
+            # print(f'{c['name']} ({c['quantity']}): {c['profit']}')
+            profit += c["profit"]
+        else:
+            print(f'{c["name"]} (x{c["quantity"]}): {c["profit"]}')
+            print(f'{c["tertiary"]["name_t"]} (x{c["tertiary"]["quantity_t"]}): {c["tertiary"]["profit_t"]}')
+            profit += (c["profit"] + c["tertiary"]["profit_t"])
+    
+    print("\nTotal profit: ", profit)
