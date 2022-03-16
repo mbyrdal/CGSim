@@ -124,14 +124,40 @@ def get_tertiary():
 def run():
     result = {}
     temp_list = get_roll()
-    
     result.update(get_object(temp_list))
     result.update({"crystals": random.randint(5,9)})
-    
     tertiary = get_tertiary()
     result["tertiary"] = tertiary
-    
     return result
+
+# Generates loot until an Enhanced crystal weapon seed is found, and prints the # of chests
+def find_unique():
+    chest_counter = 0
+    while True:
+        completion = run()
+        if completion["tertiary"]["name_t"] != "Enhanced crystal weapon seed":
+            chest_counter += 1
+        else:
+            print(f'Number of chests opened to received an Enhanced crystal weapon seed: {chest_counter}')
+            break
+
+# Calculates the average GP/hour reward chest loots and the average completion time (in seconds)
+def find_gp_per_hour(loots, avg_time):
+    total_profit = 0
+    total_time = 0
+    for l in loots:
+        if l["tertiary"]["profit_t"] == 0:
+            total_profit += l["profit"]
+        else:
+            total_profit += (l["profit"] + l["tertiary"]["profit_t"])
+    total_time = (avg_time * len(loots)) / 3
+    print(f'Total time elapsed: {total_time} seconds')
+    gp_per_second = total_profit / total_time
+    gp_per_hour = gp_per_second * 3600
+    if gp_per_hour >= 1e6:
+        print(f"GP/hour: {round((gp_per_second * 3600) / 1e6, 2)}m")
+    else:
+        print(f"GP/hour: {round((gp_per_second * 3600) / 1e3, 1)}k") 
 
 # Prints the list of dictionaries (completions) as JSON   
 def print_as_json(completions_list):
@@ -142,7 +168,7 @@ def print_as_json(completions_list):
 def print_simply(my_list):
     profit = 0
     for c in completions:
-        if c['tertiary']['profit_t'] == 0:
+        if c["tertiary"]["profit_t"] == 0:
             print(f'{c["name"]} (x{c["quantity"]}): {c["profit"]}')
             profit += c["profit"]
         else:
@@ -151,33 +177,17 @@ def print_simply(my_list):
             profit += (c["profit"] + c["tertiary"]["profit_t"])
     
     if(profit >= 1e6):
-        print(f"Total profit: {round(profit / 1e6, 1)}m")
+        print(f"Total profit: {round(profit / 1e6, 2)}m")
     else:
         print(f"Total profit: {round(profit / 1e3, 1)}k")
 
-# Generates loot until an Enhanced crystal weapon seed is found, and prints the # of chests
-def find_unique():
-    chest_counter = 0
-    while True:
-        completion = run()
-        if completion['tertiary']['name_t'] != "Enhanced crystal weapon seed":
-            chest_counter += 1
-        else:
-            print(f'Number of chests opened to received an Enhanced crystal weapon seed: {chest_counter}')
-            break
-
 # Main program
 completions = []
-for x in range(3):
+num_of_completions = 100
+for x in range(num_of_completions*3):
     completions.append(run())
 # print_as_json(completions)
-print_simply(completions)
 # find_unique()
-
-
-
-
-
-
-
-
+print_simply(completions)
+print('\n')
+find_gp_per_hour(completions, 600)
