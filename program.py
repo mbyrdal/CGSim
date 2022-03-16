@@ -133,7 +133,7 @@ def run():
     
     return result
 
-# Compiles and prints the list of dictionaries as JSON
+# Compiles and prints the list of dictionaries (completions) as JSON
 completions = []
 for x in range(3):
     completions.append(run())
