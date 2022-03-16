@@ -133,13 +133,6 @@ def run():
     
     return result
 
-# Main program
-completions = []
-for x in range(3):
-    completions.append(run())
-# print_as_json(completions)
-# print_simply(completions)
-    
 # Prints the list of dictionaries (completions) as JSON   
 def print_as_json(completions_list):
     json_obj = json.dumps(completions_list, indent = 4)
@@ -151,21 +144,23 @@ def print_simply(my_list):
     for c in completions:
         if c['tertiary']['profit_t'] == 0:
             print(f'{c["name"]} (x{c["quantity"]}): {c["profit"]}')
-            # print(f'{c['name']} ({c['quantity']}): {c['profit']}')
             profit += c["profit"]
         else:
             print(f'{c["name"]} (x{c["quantity"]}): {c["profit"]}')
-            print(f'{c["tertiary"]["name_t"]} (x{c["tertiary"]["quantity_t"]}): {c["tertiary"]["profit_t"]}')
+            print(f'Unique: {c["tertiary"]["name_t"]} (x{c["tertiary"]["quantity_t"]}): {c["tertiary"]["profit_t"]}')
             profit += (c["profit"] + c["tertiary"]["profit_t"])
     
-    if(profit >= 1000000):
-        print("Total profit: " + "{:.2f}".format(profit) + "M")
+    if(profit >= 1e6):
+        print(f"Total profit: {round(profit / 1e6, 1)}m")
     else:
-        print("Total profit: " + "{:.2f}".format(profit) + "K")
-    
-    # print("\nTotal profit: ", profit)
+        print(f"Total profit: {round(profit / 1e3, 1)}k")
 
-
+# Main program: generates 3 rolls and prints the results
+completions = []
+for x in range(3):
+    completions.append(run())
+# print_as_json(completions)
+print_simply(completions)
 
 
 
