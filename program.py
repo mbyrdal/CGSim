@@ -155,12 +155,24 @@ def print_simply(my_list):
     else:
         print(f"Total profit: {round(profit / 1e3, 1)}k")
 
-# Main program: generates 3 rolls and prints the results
+# Generates loot until an Enhanced crystal weapon seed is found, and prints the # of chests
+def find_unique():
+    chest_counter = 0
+    while True:
+        completion = run()
+        if completion['tertiary']['name_t'] != "Enhanced crystal weapon seed":
+            chest_counter += 1
+        else:
+            print(f'Number of chests opened to received an Enhanced crystal weapon seed: {chest_counter}')
+            break
+
+# Main program
 completions = []
 for x in range(3):
     completions.append(run())
 # print_as_json(completions)
 print_simply(completions)
+# find_unique()
 
 
 
