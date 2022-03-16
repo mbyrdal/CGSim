@@ -183,7 +183,7 @@ def print_simply(my_list):
 
 # Main program
 completions = []
-num_of_completions = 100
+num_of_completions = 6
 for x in range(num_of_completions*3):
     completions.append(run())
 # print_as_json(completions)
