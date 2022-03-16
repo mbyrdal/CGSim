@@ -1,5 +1,6 @@
 import random
 import json
+import pprint
 
 # Item IDs
 regdrops = {0 : "Rune full helm", 1 : "Rune chainbody", 2 : "Rune platebody", 
@@ -123,10 +124,13 @@ def get_tertiary():
 def run():
     result = {}
     temp_list = get_roll()
+    
     result.update(get_object(temp_list))
     result.update({"crystals": random.randint(5,9)})
+    
     tertiary = get_tertiary()
     result["tertiary"] = tertiary
+    
     return result
 
 # Main program
@@ -142,7 +146,6 @@ def print_as_json(completions_list):
     print(json_obj)
 
 # Prints the list of dictionaries (completions) in a simple format
-# Missing profit formatting (decimals x..k and x..m)
 def print_simply(my_list):
     profit = 0
     for c in completions:
@@ -155,4 +158,19 @@ def print_simply(my_list):
             print(f'{c["tertiary"]["name_t"]} (x{c["tertiary"]["quantity_t"]}): {c["tertiary"]["profit_t"]}')
             profit += (c["profit"] + c["tertiary"]["profit_t"])
     
-    print("\nTotal profit: ", profit)
+    if(profit >= 1000000):
+        print("Total profit: " + "{:.2f}".format(profit) + "M")
+    else:
+        print("Total profit: " + "{:.2f}".format(profit) + "K")
+    
+    # print("\nTotal profit: ", profit)
+
+
+
+
+
+
+
+
+
+
