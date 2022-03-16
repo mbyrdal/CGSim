@@ -1,4 +1,5 @@
 import random
+import json
 import pprint
 
 # Item IDs
@@ -132,7 +133,9 @@ def run():
     
     return result
 
+# Compiles and prints the list of dictionaries as JSON
 completions = []
 for x in range(3):
     completions.append(run())
-pprint.pprint(completions)
+json_obj = json.dumps(completions, indent = 4)
+print(json_obj)
