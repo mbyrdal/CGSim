@@ -1,6 +1,5 @@
 import random
 import json
-import pprint
 
 # Item IDs
 regdrops = {0 : "Rune full helm", 1 : "Rune chainbody", 2 : "Rune platebody", 
@@ -124,13 +123,10 @@ def get_tertiary():
 def run():
     result = {}
     temp_list = get_roll()
-    
     result.update(get_object(temp_list))
     result.update({"crystals": random.randint(5,9)})
-    
     tertiary = get_tertiary()
     result["tertiary"] = tertiary
-    
     return result
 
 # Main program
